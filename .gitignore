@@ -51,6 +51,11 @@ coverage.xml
 .pytest_cache/
 cover/
 
+# Security scanning reports
+bandit-report.json
+.bandit
+safety-report.json
+
 # Translations
 *.mo
 *.pot

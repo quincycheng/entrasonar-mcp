@@ -10,7 +10,54 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "mcp >= 1.19.0",
+    "fastmcp",
+    "httpx",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest >= 7.0",
+    "pytest-asyncio >= 0.21.0",
+    "pytest-cov >= 4.0",
+]
+test = [
+    "pytest >= 7.0",
+    "pytest-asyncio >= 0.21.0",
+    "pytest-cov >= 4.0",
+]
+security = [
+    "bandit[toml] >= 1.7.5",
+    "pip-audit >= 2.6.0",
+    "safety >= 2.3.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+branch = true
+source = ["."]  
+omit = [
+    "tests/*",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+[tool.bandit]
+skips = ["B101"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["."]

@@ -143,16 +143,72 @@ def my_custom_tool(domain: str) -> dict:
 
 Tools are automatically exposed to MCP clients once defined.
 
+## Testing
+
+### Run Tests Locally
+
+```bash
+# Install test dependencies
+pip install pytest pytest-asyncio pytest-cov
+
+# Run all tests
+pytest
+
+# Run tests with coverage report
+pytest --cov=. --cov-report=html
+
+# Run only specific test file
+pytest tests/test_main.py -v
+
+# Run tests for a specific class
+pytest tests/test_main.py::TestAnalyzeDomain -v
+```
+
+### Security Scanning
+
+The project includes multiple security scanning tools:
+
+```bash
+# Run Bandit (static security analysis)
+bandit -r . -f txt
+
+# Run pip-audit (dependency vulnerabilities)
+pip-audit
+
+# Run Safety (known security vulnerabilities)
+safety check
+```
+
+### GitHub Actions
+
+Automated testing and security checks run on:
+- **Push to main or develop** - Full test suite and security scans
+- **Pull requests** - Tests against Python 3.10, 3.11, 3.12
+- **Daily schedule (2 AM UTC)** - Security vulnerability checks
+
+Check the [.github/workflows/](.github/workflows/) directory for configuration details.
+
 ## Project Structure
 
 ```
 entrasonar-mcp/
-├── main.py              # MCP server implementation with tools
-├── pyproject.toml       # Project metadata and dependencies
-├── requirements.txt     # Python dependencies
-├── Dockerfile           # Container configuration
-├── README.md            # This file
-└── .gitignore          # Git ignore rules
+├── main.py                      # MCP server implementation with tools
+├── pyproject.toml               # Project metadata and dependencies
+├── requirements.txt             # Python dependencies
+├── pytest.ini                   # Pytest configuration
+├── .bandit                      # Bandit security scanner config
+├── Dockerfile                   # Container configuration
+├── README.md                    # This file
+├── LICENSE                      # MIT License
+├── .gitignore                   # Git ignore rules
+├── tests/                       # Test suite
+│   ├── __init__.py
+│   ├── conftest.py             # Pytest fixtures
+│   └── test_main.py            # Unit tests
+└── .github/workflows/           # GitHub Actions workflows
+    ├── tests.yml               # Test execution workflow
+    ├── security.yml            # Security scanning workflow
+    └── linting.yml             # Code quality checks workflow
 ```
 
 ## Deployment
