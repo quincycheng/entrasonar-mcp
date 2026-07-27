@@ -8,6 +8,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PORT=8000 \
     FASTMCP_STATELESS_HTTP=true
 
+# Add metadata labels for Docker Hub
+LABEL maintainer="Quincy Cheng <quincy@example.com>"
+LABEL description="EntraSonar MCP - Microsoft Entra ID and Azure infrastructure reconnaissance server"
+LABEL version="0.1.0"
+LABEL org.opencontainers.image.source="https://github.com/your-org/entrasonar-mcp"
+
 # Pull in your stripped-down dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

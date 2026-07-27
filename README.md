@@ -94,6 +94,27 @@ docker build -t entrasonar-mcp .
 docker run -p 8000:8000 entrasonar-mcp
 ```
 
+### Pre-built Docker Images
+
+Pre-built images are automatically pushed to Docker Hub on every push to main/develop:
+
+```bash
+# Pull the latest image
+docker pull quincycheng/entrasonar-mcp:latest
+
+# Run the pre-built image
+docker run -p 8000:8000 quincycheng/entrasonar-mcp:latest
+```
+
+**Available tags:**
+- `latest` - Latest build from main branch
+- `main` - Latest from main branch
+- `develop` - Latest from develop branch
+- `v1.0.0` - Semantic version tags (when releasing)
+- `main-abc123` - Branch + commit SHA
+
+For Docker Hub setup instructions, see [DOCKER_HUB_SETUP.md](DOCKER_HUB_SETUP.md).
+
 ## Using the Tools
 
 Once the MCP server is running, clients can invoke the available tools:
@@ -241,6 +262,30 @@ az container create --resource-group <rg> \
   --image <your-registry>/entrasonar-mcp:latest \
   --ports 8000
 ```
+
+### Pre-built Docker Hub Images
+
+Docker images are automatically built and pushed to Docker Hub on every push to main/develop and when you create version tags:
+
+```bash
+# Pull the latest image
+docker pull quincycheng/entrasonar-mcp:latest
+
+# Run the pre-built image
+docker run -p 8000:8000 quincycheng/entrasonar-mcp:latest
+```
+
+**Available tags:**
+- `latest` - Latest build from main branch
+- `main` - Latest from main branch  
+- `develop` - Latest from develop branch
+- `v1.0.0` - Semantic version tags (when releasing)
+- `main-abc123` - Branch + commit SHA
+
+> [!TIP]
+> For quick setup instructions, see [DOCKER_HUB_QUICK_START.md](DOCKER_HUB_QUICK_START.md)
+> 
+> For full configuration details, see [DOCKER_HUB_SETUP.md](DOCKER_HUB_SETUP.md)
 
 ## Configuration
 
