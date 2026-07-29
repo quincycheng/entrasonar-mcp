@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  entrasonar-mcp:
+    image: quincycheng/entrasonar-mcp:latest
+    container_name: entrasonar-mcp
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      FASTMCP_STATELESS_HTTP: "true"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    # Uncomment to limit resources
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 256M
+
+# Usage:
+# 
+# Docker:
+#   docker compose up -d
+#   docker compose logs -f
+#   docker compose down
+#
+# Podman:
+#   podman-compose up -d
+#   podman-compose logs -f
+#   podman-compose down
+#
+# The MCP server will be available at: http://localhost:8000
