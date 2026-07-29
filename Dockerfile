@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.12
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ LABEL description="EntraSonar MCP - Microsoft Entra ID and Azure infrastructure 
 LABEL version="0.1.0"
 LABEL org.opencontainers.image.source="https://github.com/your-org/entrasonar-mcp"
 
-# Pull in your stripped-down dependencies
+# Pull in your dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
