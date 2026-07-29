@@ -1,6 +1,8 @@
 import os
 import httpx
 from fastmcp import FastMCP
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 mcp = FastMCP("QuincyEntraSonarMCP")
 
@@ -201,6 +203,10 @@ async def analyze_domain(domain: str) -> dict:
             "domain_info": domain_info,
             "m365_checks": m365_checks
         }
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health(request: Request) -> JSONResponse:
+    return JSONResponse({"status": "ok"})
 
 if __name__ == "__main__":
     mcp.run(
