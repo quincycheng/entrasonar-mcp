@@ -74,18 +74,20 @@ jobs:
           cache-to: type=gha,mode=max
         continue-on-error: true
 
-      - name: Notify if Docker Hub credentials not configured
+      - name: Notify push result
         if: github.event_name == 'push'
         run: |
-          echo "ℹ️  Image built successfully!"
-          echo "To push this image to Docker Hub, trigger the workflow manually:"
-          echo "  1. Go to Actions tab → Docker Build and Publish"
-          echo "  2. Click 'Run workflow' → select 'true' for push_image"
-          echo ""
-          echo "Or configure GitHub secrets to auto-push:"
-          echo "  - DOCKER_USERNAME: Your Docker Hub username"
-          echo "  - DOCKER_PASSWORD: Your Docker Hub access token"
-          echo "See DOCKER_HUB_SETUP.md for details."
+          if [ "${{ steps.build.outcome }}" == "success" ]; then
+            echo "✅ Image built and pushed to Docker Hub successfully!"
+            echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+            echo "Tags: ${{ steps.meta.outputs.tags }}"
+          else
+            echo "⚠️  Image built but push may have failed."
+            echo "Ensure GitHub secrets are configured:"
+            echo "  - DOCKER_USERNAME: Your Docker Hub username"
+            echo "  - DOCKER_PASSWORD: Your Docker Hub access token"
+            echo "See DOCKER_HUB_SETUP.md for details."
+          fi
 
   test-image:
     needs: build
