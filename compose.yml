@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   entrasonar-mcp:
     image: quincycheng/entrasonar-mcp:latest
