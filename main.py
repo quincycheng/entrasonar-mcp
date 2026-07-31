@@ -183,7 +183,7 @@ HEADERS = {
 async def analyze_domain(domain: str) -> dict:
     """Analyze a domain name using EntraSonar APIs to aggregate general and M365 data."""
     
-    async with httpx.AsyncClient(timeout=30.0) as client:
+    async with httpx.AsyncClient(timeout=30.0, verify=False) as client:
         # 1. Fetch General Domain Info
         info_url = f"https://entrasonar.com/api/domain?domain={domain}"
         res1 = await client.get(info_url, headers=HEADERS)
